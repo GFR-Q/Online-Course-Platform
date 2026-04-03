@@ -1,9 +1,9 @@
 package models
 
 type Course struct {
-	ID          uint `gorm:"primaryKey"`
-	Title       string
-	Description string
-	Price       float64
-	UserID      uint
+	ID          uint    `gorm:"primaryKey" json:"id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price"`
+	UserID      uint    `json:"user_id"`
 }

@@ -1,8 +1,8 @@
 package models
 
 type User struct {
-	ID      uint `gorm:"primaryKey"`
-	Name    string
-	Email   string   `gorm:"unique"`
-	Courses []Course `gorm:"foreignKey:UserID"`
+	ID      uint     `gorm:"primaryKey" json:"id"`
+	Name    string   `json:"name"`
+	Email   string   `gorm:"unique" json:"email"`
+	Courses []Course `gorm:"foreignKey:UserID" json:"courses"`
 }
