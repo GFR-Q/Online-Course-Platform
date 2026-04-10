@@ -8,21 +8,24 @@ import (
 
 func main() {
 	database.InitDB()
-
 	r := gin.Default()
+	r.POST("/register", handlers.CreateUser)
+	r.POST("/login", handlers.Login)
 
-	r.POST("/users", handlers.CreateUser)
-	r.GET("/users", handlers.GetUsers)
-	r.GET("/users/:id", handlers.GetUser)
-	r.PUT("/users/:id", handlers.UpdateUser)
-	r.DELETE("/users/:id", handlers.DeleteUser)
-
-	r.POST("/courses", handlers.CreateCourse)
 	r.GET("/courses", handlers.GetCourses)
 	r.GET("/courses/:id", handlers.GetCourse)
-	r.PUT("/courses/:id", handlers.UpdateCourse)
-	r.DELETE("/courses/:id", handlers.DeleteCourse)
 	r.GET("/search", handlers.SearchCourses)
+	protected := r.Group("/")
+	protected.Use(handlers.AuthMiddleware())
+	{
+		protected.POST("/courses", handlers.CreateCourse)
+		protected.PUT("/courses/:id", handlers.UpdateCourse)
+		protected.DELETE("/courses/:id", handlers.DeleteCourse)
+		protected.GET("/users", handlers.GetUsers)
+		protected.GET("/users/:id", handlers.GetUser)
+		protected.PUT("/users/:id", handlers.UpdateUser)
+		protected.DELETE("/users/:id", handlers.DeleteUser)
+	}
 
 	r.Run(":8080")
 }
