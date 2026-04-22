@@ -3,7 +3,6 @@ package database
 import (
 	"log"
 
-	"github.com/GFR-Q/Online-Course-Platform/backend/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -17,5 +16,5 @@ func InitDB() {
 	if err != nil {
 		log.Fatal("Database connection error:", err)
 	}
-	DB.AutoMigrate(&models.User{}, &models.Course{})
+	//DB.AutoMigrate(&models.User{}, &models.Course{})
 }
