@@ -6,6 +6,7 @@ import (
 	"github.com/GFR-Q/Online-Course-Platform/backend/database"
 	"github.com/GFR-Q/Online-Course-Platform/backend/models"
 	"github.com/gin-gonic/gin"
+	"github.com/go-resty/resty/v2"
 )
 
 func CreateCourse(c *gin.Context) {
@@ -54,4 +55,19 @@ func SearchCourses(c *gin.Context) {
 	var courses []models.Course
 	database.DB.Where("title ILIKE ?", "%"+title+"%").Find(&courses)
 	c.JSON(http.StatusOK, courses)
+}
+func GetCoursePriceInUSD(c *gin.Context) {
+	price := c.Query("price")
+	client := resty.New()
+
+	resp, err := client.R().
+		SetQueryParam("price", price).
+		SetResult(map[string]interface{}{}).
+		Get("http://localhost:8081/convert")
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Второй сервис недоступен"})
+		return
+	}
+	c.Data(http.StatusOK, "application/json", resp.Body())
 }

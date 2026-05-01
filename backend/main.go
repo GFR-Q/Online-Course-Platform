@@ -15,6 +15,7 @@ func main() {
 	r.GET("/courses", handlers.GetCourses)
 	r.GET("/courses/:id", handlers.GetCourse)
 	r.GET("/search", handlers.SearchCourses)
+	r.GET("/courses/convert", handlers.GetConvertedPrice)
 	protected := r.Group("/")
 	protected.Use(handlers.AuthMiddleware())
 	{
