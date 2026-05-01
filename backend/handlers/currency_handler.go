@@ -18,7 +18,7 @@ func GetConvertedPrice(c *gin.Context) {
 
 	resp, err := client.R().
 		SetQueryParam("amount", amount).
-		Get("http://localhost:8081/convert")
+		Get("http://currency-service:8081/convert")
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Второй сервис (Currency) недоступен"})
