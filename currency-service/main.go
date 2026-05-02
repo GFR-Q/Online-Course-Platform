@@ -28,13 +28,13 @@ func main() {
 		usdResult := amount / exchangeRate
 
 		c.JSON(http.StatusOK, gin.H{
-			"status":           "success",
-			"original_amount":  amount,
-			"base_currency":    "KZT",
-			"target_currency":  "USD",
-			"exchange_rate":    exchangeRate,
-			"converted_amount": fmt.Sprintf("%.2f", usdResult),
-			"message":          "Converted by Currency Microservice",
+			"статус":            "success",
+			"оригинал цена":     amount,
+			"валюта":            "KZT",
+			"перевод валюта":    "USD",
+			"цена валюты":       exchangeRate,
+			"сума при переводе": fmt.Sprintf("%.2f", usdResult),
+			"оповещяние":        "Converted by Currency Microservice",
 		})
 	})
 
